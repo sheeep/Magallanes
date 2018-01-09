@@ -12,6 +12,7 @@ namespace Mage;
 
 use Mage\Command\AbstractCommand;
 use Mage\Runtime\Runtime;
+use Symfony\Component\Console\Event\ConsoleErrorEvent;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Monolog\Logger;
@@ -46,7 +47,7 @@ class MageApplication extends Application
         $dispatcher = new EventDispatcher();
         $this->setDispatcher($dispatcher);
 
-        $dispatcher->addListener(ConsoleEvents::EXCEPTION, function (ConsoleExceptionEvent $event) {
+        $dispatcher->addListener(ConsoleEvents::ERROR, function (ConsoleErrorEvent $event) {
             $output = $event->getOutput();
             $command = $event->getCommand();
             $output->writeln(sprintf('Oops, exception thrown while running command <info>%s</info>', $command->getName()));
