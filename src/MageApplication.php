@@ -52,7 +52,7 @@ class MageApplication extends Application
             $command = $event->getCommand();
             $output->writeln(sprintf('Oops, exception thrown while running command <info>%s</info>', $command->getName()));
             $exitCode = $event->getExitCode();
-            $event->setException(new \LogicException('Caught exception', $exitCode, $event->getException()));
+            $event->setError(new \LogicException('Caught exception', $exitCode, $event->getError()));
         });
 
         $this->runtime = $this->instantiateRuntime();
